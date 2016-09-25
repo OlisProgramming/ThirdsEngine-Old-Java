@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 public class ThirdsEngine extends ApplicationAdapter {
@@ -21,6 +22,8 @@ public class ThirdsEngine extends ApplicationAdapter {
 	
 	private ModelBatch batch;
 	private Environment environment;
+	
+	private CameraInputController camController;
 	
 	private Model model;
 	private ModelInstance instance;
@@ -39,6 +42,9 @@ public class ThirdsEngine extends ApplicationAdapter {
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
         
+        camController = new CameraInputController(cam);
+        Gdx.input.setInputProcessor(camController);
+        
         ModelBuilder modelBuilder = new ModelBuilder();
         model = modelBuilder.createBox(5f, 5f, 5f, 
             new Material(ColorAttribute.createDiffuse(Color.GREEN)),
@@ -48,6 +54,8 @@ public class ThirdsEngine extends ApplicationAdapter {
 
     @Override
     public void render() {
+    	camController.update();
+    	
     	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
