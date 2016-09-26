@@ -8,6 +8,9 @@ public class ThirdsEngine extends ApplicationAdapter {
 	
 	private ThirdsGame game;
 	
+	public static final int TICKS_PER_SECOND = 60;
+	public static final float SECONDS_PER_TICK = 1f / TICKS_PER_SECOND;
+	
 	@Override
     public void create() {
 		game = new TestGame();
