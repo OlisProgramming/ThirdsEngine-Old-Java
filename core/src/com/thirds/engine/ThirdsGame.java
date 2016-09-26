@@ -1,4 +1,4 @@
-package com.thirds.game;
+package com.thirds.engine;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Disposable;
-import com.thirds.engine.Renderable;
 
 public class ThirdsGame implements Renderable, Disposable {
 

@@ -3,8 +3,7 @@ package com.thirds.engine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.thirds.game.TestGame;
-import com.thirds.game.ThirdsGame;
+import com.thirds.game.GameDetails;
 
 public class ThirdsEngine extends ApplicationAdapter {
 	
@@ -20,7 +19,7 @@ public class ThirdsEngine extends ApplicationAdapter {
 	
 	@Override
     public void create() {
-		game = new TestGame();
+		game = GameDetails.game;
     }
 
     @Override
