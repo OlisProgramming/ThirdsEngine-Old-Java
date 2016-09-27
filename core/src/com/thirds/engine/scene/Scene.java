@@ -20,17 +20,25 @@ public class Scene implements Renderable {
 	
 	@Override
 	public void preTick() {
+		for (GameObject object : objects)
+			object.preTick();
 	}
 	
 	@Override
 	public void tick() {
+		for (GameObject object : objects)
+			object.tick();
 	}
 	
 	@Override
-	public void postTick() {	
+	public void postTick() {
+		for (GameObject object : objects)
+			object.postTick();
 	}
 	
 	@Override
 	public void render() {
+		for (GameObject object : objects)
+			object.render();
 	}
 }

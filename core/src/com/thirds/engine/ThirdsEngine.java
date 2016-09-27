@@ -11,7 +11,7 @@ public class ThirdsEngine extends ApplicationAdapter {
 	public static final float SECONDS_PER_TICK = 1f / TICKS_PER_SECOND;
 	public static final float MILLIS_PER_TICK = SECONDS_PER_TICK * 1000f;
 	
-	private ThirdsGame game;
+	public static ThirdsGame game;
 	
 	private long startTime = TimeUtils.millis();
 	private long lastFrameTime = startTime;

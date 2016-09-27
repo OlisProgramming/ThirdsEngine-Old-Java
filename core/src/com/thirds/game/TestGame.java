@@ -5,19 +5,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.thirds.engine.ThirdsGame;
+import com.thirds.engine.scene.object.ModelRenderObject;
 
 public class TestGame extends ThirdsGame {
 	
 	private CameraInputController camController;
 	
 	private Model model;
-	private ModelInstance instance;
 	
 	public TestGame() {
 		super();
@@ -41,7 +40,7 @@ public class TestGame extends ThirdsGame {
             		ColorAttribute.createDiffuse(Color.GREEN),
             		ColorAttribute.createSpecular(Color.WHITE)),
             Usage.Position | Usage.Normal);
-        instance = new ModelInstance(model);
+        scene.addObject(new ModelRenderObject(model));
 	}
 	
 	@Override
@@ -49,10 +48,10 @@ public class TestGame extends ThirdsGame {
 		super.render();
 		
 		camController.update();
-
-        batch.begin(camera);
-        batch.render(instance, environment);
-        batch.end();
+		
+		batch.begin(camera);
+		scene.render();
+		batch.end();
 	}
 	
 	@Override
