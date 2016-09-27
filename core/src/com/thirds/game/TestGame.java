@@ -27,9 +27,9 @@ public class TestGame extends ThirdsGame {
         camera.far = 300f;
         camera.update();
         
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.1f, 0.1f, 0.1f, 1f));
-        environment.set(new ColorAttribute(ColorAttribute.Specular, 1f, 1f, 1f, 1f));
-        environment.add(new PointLight().set(1f, 1f, 1f, 8f, 6f, 7f, 100f));
+        scene.getEnvironment().set(new ColorAttribute(ColorAttribute.AmbientLight, 0.1f, 0.1f, 0.1f, 1f));
+        scene.getEnvironment().set(new ColorAttribute(ColorAttribute.Specular, 1f, 1f, 1f, 1f));
+        scene.getEnvironment().add(new PointLight().set(1f, 1f, 1f, 8f, 6f, 7f, 100f));
         
         camController = new CameraInputController(camera);
         Gdx.input.setInputProcessor(camController);
