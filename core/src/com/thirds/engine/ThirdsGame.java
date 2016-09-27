@@ -13,7 +13,6 @@ public class ThirdsGame implements Renderable, Disposable {
 	
 	protected Scene scene;
 	public ModelBatch batch;
-	//public Environment environment;
 	
 	public ThirdsGame() {
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

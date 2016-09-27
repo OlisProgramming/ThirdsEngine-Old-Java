@@ -2,6 +2,7 @@ package com.thirds.engine;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.thirds.game.GameDetails;
 
@@ -12,6 +13,8 @@ public class ThirdsEngine extends ApplicationAdapter {
 	public static final float MILLIS_PER_TICK = SECONDS_PER_TICK * 1000f;
 	
 	public static ThirdsGame game;
+	public static Input input;
+	public static InputMultiplexer inputMux;
 	
 	private long startTime = TimeUtils.millis();
 	private long lastFrameTime = startTime;
@@ -19,6 +22,9 @@ public class ThirdsEngine extends ApplicationAdapter {
 	
 	@Override
     public void create() {
+		input = new Input();
+		inputMux = new InputMultiplexer(input);
+		Gdx.input.setInputProcessor(inputMux);
 		game = GameDetails.game;
     }
 
