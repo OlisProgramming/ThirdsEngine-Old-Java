@@ -46,6 +46,6 @@ public class ModelRenderObject extends GameObject {
 	@Override
 	public void render() {
 		super.render();
-		ThirdsEngine.game.batch.render(model, ThirdsEngine.game.environment);
+		ThirdsEngine.game.batch.render(model, ThirdsEngine.game.getScene().getEnvironment());
 	}
 }
