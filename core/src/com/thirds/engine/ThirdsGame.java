@@ -18,13 +18,24 @@ public class ThirdsGame implements Renderable, Disposable {
 	
 	public ThirdsGame() {
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		scene = new Scene();
 		batch = new ModelBatch();
         environment = new Environment();
 	}
 
 	@Override
+	public void preTick() {
+		scene.preTick();
+	}
+	
+	@Override
 	public void tick() {
 		scene.tick();
+	}
+	
+	@Override
+	public void postTick() {
+		scene.postTick();
 	}
 	
 	@Override
