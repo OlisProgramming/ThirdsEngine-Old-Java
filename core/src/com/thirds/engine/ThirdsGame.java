@@ -7,7 +7,13 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.engine.scene.Scene;
 
 public class ThirdsGame implements Renderable, Disposable {
@@ -18,6 +24,7 @@ public class ThirdsGame implements Renderable, Disposable {
 	public ModelBatch batch;
 	private SpriteBatch menuBatch;
 	
+	private Stage pauseMenu;
     private BitmapFont font;
 	
 	protected GameState state;
@@ -28,10 +35,22 @@ public class ThirdsGame implements Renderable, Disposable {
 		batch = new ModelBatch();
 		menuBatch = new SpriteBatch();
 		
+		pauseMenu = new Stage(new ScreenViewport());
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
+		Label pausedLabel = new Label("RESUME GAME", new LabelStyle(font, Color.WHITE));
+		pausedLabel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				state.setPaused(false);
+			}
+		});
+		pauseMenu.addActor(pausedLabel);
+		
 		state = new GameState();
+		
+		ThirdsEngine.inputMux.addProcessor(pauseMenu);
 	}
 	
 	public Scene getScene() {
@@ -77,7 +96,7 @@ public class ThirdsGame implements Renderable, Disposable {
 	 * Draw pause menu.
 	 */
 	protected void renderMenu() {
-		font.draw(menuBatch, "Paused", 0, Gdx.graphics.getHeight());
+		pauseMenu.draw();
 	}
 	
 	public void pause() {
