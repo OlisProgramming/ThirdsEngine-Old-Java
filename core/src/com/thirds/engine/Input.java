@@ -1,11 +1,17 @@
 package com.thirds.engine;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
 public class Input implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		if (keycode == Keys.ESCAPE) {
+			// Toggle paused state
+			ThirdsEngine.game.state.setPaused(!ThirdsEngine.game.state.isPaused());
+			return true;
+		}
 		return false;
 	}
 
