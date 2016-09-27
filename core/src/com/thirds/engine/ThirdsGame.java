@@ -14,10 +14,13 @@ public class ThirdsGame implements Renderable, Disposable {
 	protected Scene scene;
 	public ModelBatch batch;
 	
+	protected GameState state;
+	
 	public ThirdsGame() {
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		scene = new Scene();
 		batch = new ModelBatch();
+		state = new GameState();
 	}
 	
 	public Scene getScene() {
@@ -26,17 +29,20 @@ public class ThirdsGame implements Renderable, Disposable {
 
 	@Override
 	public void preTick() {
-		scene.preTick();
+		if (!state.isPaused())
+			scene.preTick();
 	}
 	
 	@Override
 	public void tick() {
-		scene.tick();
+		if (!state.isPaused())
+			scene.tick();
 	}
 	
 	@Override
 	public void postTick() {
-		scene.postTick();
+		if (!state.isPaused())
+			scene.postTick();
 	}
 	
 	@Override
@@ -46,6 +52,7 @@ public class ThirdsGame implements Renderable, Disposable {
 	}
 	
 	public void pause() {
+		state.setPaused(true);
 	}
 	
 	public void resume() {
