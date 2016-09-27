@@ -13,12 +13,14 @@ public class ThirdsGame implements Renderable, Disposable {
 	
 	protected Scene scene;
 	public ModelBatch batch;
-	//public Environment environment;
+	
+	protected GameState state;
 	
 	public ThirdsGame() {
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		scene = new Scene();
 		batch = new ModelBatch();
+		state = new GameState();
 	}
 	
 	public Scene getScene() {
@@ -44,9 +46,20 @@ public class ThirdsGame implements Renderable, Disposable {
 	public void render() {    	
     	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        
+        batch.begin(camera);
+        scene.render();
+	}
+	
+	/**
+	 * Clean up rendering resources for this frame and end the batch
+	 */
+	public void endRender() {
+		batch.end();
 	}
 	
 	public void pause() {
+		state.setPaused(true);
 	}
 	
 	public void resume() {

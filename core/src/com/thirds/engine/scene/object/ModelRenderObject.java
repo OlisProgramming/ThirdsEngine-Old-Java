@@ -44,6 +44,12 @@ public class ModelRenderObject extends GameObject {
 	}
 	
 	@Override
+	public void tick() {
+		super.tick();
+		model.transform.setToTranslation((float)Math.random(), (float)Math.random(), (float)Math.random());
+	}
+	
+	@Override
 	public void render() {
 		super.render();
 		ThirdsEngine.game.batch.render(model, ThirdsEngine.game.getScene().getEnvironment());
