@@ -1,8 +1,11 @@
 package com.thirds.engine;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.thirds.engine.scene.Scene;
@@ -13,6 +16,9 @@ public class ThirdsGame implements Renderable, Disposable {
 	
 	protected Scene scene;
 	public ModelBatch batch;
+	private SpriteBatch menuBatch;
+	
+    private BitmapFont font;
 	
 	protected GameState state;
 	
@@ -20,6 +26,11 @@ public class ThirdsGame implements Renderable, Disposable {
 		camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		scene = new Scene();
 		batch = new ModelBatch();
+		menuBatch = new SpriteBatch();
+		
+		font = new BitmapFont();
+		font.setColor(Color.WHITE);
+		
 		state = new GameState();
 	}
 	
@@ -48,14 +59,25 @@ public class ThirdsGame implements Renderable, Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         
         batch.begin(camera);
-        scene.render();
+        renderScene();
+        batch.end();
+        
+        if (state.isPaused()) {
+	        menuBatch.begin();
+	        renderMenu();
+	        menuBatch.end();
+        }
+	}
+	
+	protected void renderScene() {
+		scene.render();
 	}
 	
 	/**
-	 * Clean up rendering resources for this frame and end the batch
+	 * Draw pause menu.
 	 */
-	public void endRender() {
-		batch.end();
+	protected void renderMenu() {
+		font.draw(menuBatch, "Paused", 0, Gdx.graphics.getHeight());
 	}
 	
 	public void pause() {

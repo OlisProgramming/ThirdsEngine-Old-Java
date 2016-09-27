@@ -46,7 +46,6 @@ public class ThirdsEngine extends ApplicationAdapter {
     	}
     	
     	game.render();
-    	game.endRender();
     }
 
     @Override
