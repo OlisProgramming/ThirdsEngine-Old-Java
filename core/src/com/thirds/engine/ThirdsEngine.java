@@ -38,12 +38,15 @@ public class ThirdsEngine extends ApplicationAdapter {
     	
     	while (unprocessedTime >= MILLIS_PER_TICK) {
     		unprocessedTime -= MILLIS_PER_TICK;
-    		game.preTick();
-    		game.tick();
-    		game.postTick();
+    		if (!game.state.isPaused()) {
+	    		game.preTick();
+	    		game.tick();
+	    		game.postTick();
+    		}
     	}
     	
     	game.render();
+    	game.endRender();
     }
 
     @Override

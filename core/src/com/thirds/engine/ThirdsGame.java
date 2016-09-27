@@ -29,26 +29,33 @@ public class ThirdsGame implements Renderable, Disposable {
 
 	@Override
 	public void preTick() {
-		if (!state.isPaused())
-			scene.preTick();
+		scene.preTick();
 	}
 	
 	@Override
 	public void tick() {
-		if (!state.isPaused())
-			scene.tick();
+		scene.tick();
 	}
 	
 	@Override
 	public void postTick() {
-		if (!state.isPaused())
-			scene.postTick();
+		scene.postTick();
 	}
 	
 	@Override
 	public void render() {    	
     	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        
+        batch.begin(camera);
+        scene.render();
+	}
+	
+	/**
+	 * Clean up rendering resources for this frame and end the batch
+	 */
+	public void endRender() {
+		batch.end();
 	}
 	
 	public void pause() {

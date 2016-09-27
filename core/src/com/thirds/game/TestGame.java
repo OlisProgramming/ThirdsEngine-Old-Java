@@ -44,14 +44,8 @@ public class TestGame extends ThirdsGame {
 	}
 	
 	@Override
-	public void render() {
-		super.render();
-		
-		camController.update();
-		
-		batch.begin(camera);
-		scene.render();
-		batch.end();
+	public void tick() {
+		super.tick();
 	}
 	
 	@Override
