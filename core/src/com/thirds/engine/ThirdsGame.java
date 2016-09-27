@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.thirds.engine.scene.Scene;
 
 public class ThirdsGame implements Renderable, Disposable {
 
 	protected PerspectiveCamera camera;
 	
+	protected Scene scene;
 	protected ModelBatch batch;
 	protected Environment environment;
 	
@@ -22,12 +24,15 @@ public class ThirdsGame implements Renderable, Disposable {
 
 	@Override
 	public void tick() {
+		scene.tick();
 	}
 	
 	@Override
 	public void render() {    	
     	Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        
+        scene.render();
 	}
 	
 	public void pause() {

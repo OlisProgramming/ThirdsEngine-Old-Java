@@ -2,6 +2,7 @@ package com.thirds.engine.scene;
 
 import com.badlogic.gdx.utils.Array;
 import com.thirds.engine.Renderable;
+import com.thirds.engine.scene.component.Component;
 
 public class Node implements Renderable {
 
@@ -18,6 +19,7 @@ public class Node implements Renderable {
 	}
 	
 	public void addComponent(Component component) {
+		component.setNode(this);
 		components.add(component);
 	}
 	
