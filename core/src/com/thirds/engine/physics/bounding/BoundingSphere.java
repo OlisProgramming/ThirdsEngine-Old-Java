@@ -3,7 +3,7 @@ package com.thirds.engine.physics.bounding;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
 
-public class BoundingSphere {
+public class BoundingSphere extends BoundingObject {
 
 	private Vector3 pos;
 	private float radius;
@@ -13,7 +13,8 @@ public class BoundingSphere {
 		this.radius = radius;
 	}
 	
-	public CollisionData intersectSphere(BoundingSphere other) {
+	@Override
+	public CollisionData collideSphere(BoundingSphere other) {
 		
 		/*
 		 * The distance between the edge of this sphere
