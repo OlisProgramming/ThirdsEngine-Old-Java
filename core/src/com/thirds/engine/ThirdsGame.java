@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -25,6 +27,7 @@ public class ThirdsGame implements Renderable, Disposable {
 	private SpriteBatch menuBatch;
 	
 	private Stage pauseMenu;
+	private Container<VerticalGroup> menuContainer;
     private BitmapFont font;
 	
 	protected GameState state;
@@ -40,13 +43,31 @@ public class ThirdsGame implements Renderable, Disposable {
 		font.setColor(Color.WHITE);
 		
 		Label pausedLabel = new Label("RESUME GAME", new LabelStyle(font, Color.WHITE));
+		Label quitLabel = new Label("QUIT", new LabelStyle(font, Color.WHITE));
+		
 		pausedLabel.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state.setPaused(false);
 			}
 		});
-		pauseMenu.addActor(pausedLabel);
+		quitLabel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO add an 'Are you sure you want to Quit?' box
+				Gdx.app.exit();
+			}
+		});
+		
+		VerticalGroup menuGroup = new VerticalGroup();
+		menuGroup.addActor(pausedLabel);
+		menuGroup.addActor(quitLabel);
+		menuGroup.space(64f);
+		
+		menuContainer = new Container<VerticalGroup>(menuGroup);
+		menuContainer.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		pauseMenu.addActor(menuContainer);
 		
 		state = new GameState();
 		
@@ -110,6 +131,8 @@ public class ThirdsGame implements Renderable, Disposable {
 		camera.viewportWidth = width;
     	camera.viewportHeight = height;
     	camera.update();
+    	
+    	menuContainer.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	@Override
