@@ -138,5 +138,6 @@ public class ThirdsGame implements Renderable, Disposable {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		scene.dispose();
 	}
 }
