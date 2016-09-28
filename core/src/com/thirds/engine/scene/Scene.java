@@ -2,10 +2,11 @@ package com.thirds.engine.scene;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.thirds.engine.Renderable;
 import com.thirds.engine.scene.object.GameObject;
 
-public class Scene implements Renderable {
+public class Scene implements Renderable, Disposable {
 	
 	private Array<GameObject> objects;
 	private Environment environment;
@@ -47,5 +48,11 @@ public class Scene implements Renderable {
 	public void render() {
 		for (GameObject object : objects)
 			object.render();
+	}
+	
+	@Override
+	public void dispose() {
+		for (GameObject object : objects)
+			object.dispose();
 	}
 }
