@@ -39,13 +39,11 @@ public class TestGame extends ThirdsGame {
         ModelBuilder modelBuilder = new ModelBuilder();
         modelFloor = modelBuilder.createBox(20f, 1f, 20f,
 	            new Material(
-	            		ColorAttribute.createDiffuse(Color.GREEN),
-	            		ColorAttribute.createSpecular(Color.WHITE)),
+	            		ColorAttribute.createDiffuse(Color.GREEN)),
 	            Usage.Position | Usage.Normal);
         modelSphere = modelBuilder.createSphere(2f, 2f, 2f, 32, 16,
         		new Material(
-        				ColorAttribute.createDiffuse(Color.BLUE),
-        				ColorAttribute.createSpecular(Color.WHITE)),
+        				ColorAttribute.createDiffuse(Color.BLUE)),
         		Usage.Position | Usage.Normal);
         
         scene.addObject(new ModelRenderObject(modelFloor));
