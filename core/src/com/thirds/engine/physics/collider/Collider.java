@@ -41,4 +41,11 @@ public abstract class Collider {
 	 * an <code>AABBCollider</code>.
 	 */
 	public abstract CollisionData collideAABB(AABBCollider other);
+	
+	/**
+	 * Compute <code>CollisionData</code> for this
+	 * <code>Collider</code> colliding with
+	 * an <code>PlaneCollider</code>.
+	 */
+	public abstract CollisionData collidePlane(PlaneCollider other);
 }

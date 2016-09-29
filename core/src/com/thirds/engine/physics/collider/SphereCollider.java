@@ -45,7 +45,12 @@ public class SphereCollider extends Collider {
 	
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
-		return other.collide(this);
+		return other.collideSphere(this);
+	}
+	
+	@Override
+	public CollisionData collidePlane(PlaneCollider other) {
+		return other.collideSphere(this);
 	}
 	
 	public Vector3 getPos() {

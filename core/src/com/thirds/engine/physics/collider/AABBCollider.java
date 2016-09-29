@@ -39,7 +39,6 @@ public class AABBCollider extends Collider {
 		return null;
 	}
 	
-	// TODO
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
 		
@@ -62,6 +61,12 @@ public class AABBCollider extends Collider {
 		 * return an actual vector length.
 		 */
 		return new CollisionData(maxDistance < 0, maxDistance);
+	}
+	
+	// TODO
+	@Override
+	public CollisionData collidePlane(PlaneCollider other) {
+		return other.collideAABB(this);
 	}
 	
 	public Vector3 getMin() {
