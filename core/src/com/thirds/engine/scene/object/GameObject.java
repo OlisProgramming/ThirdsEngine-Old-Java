@@ -1,8 +1,9 @@
 package com.thirds.engine.scene.object;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.thirds.engine.Renderable;
 
-public class GameObject implements Renderable {
+public class GameObject implements Renderable, Disposable {
 
 	@Override
 	public void preTick() {
@@ -18,5 +19,9 @@ public class GameObject implements Renderable {
 	
 	@Override
 	public void render() {
+	}
+	
+	@Override
+	public void dispose() {	
 	}
 }

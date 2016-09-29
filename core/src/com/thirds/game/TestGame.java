@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.ThirdsGame;
 import com.thirds.engine.scene.object.ModelRenderObject;
@@ -16,7 +17,7 @@ public class TestGame extends ThirdsGame {
 	
 	private CameraInputController camController;
 	
-	private Model model;
+	private Model modelFloor, modelSphere;
 	
 	public TestGame() {
 		super();
@@ -30,17 +31,24 @@ public class TestGame extends ThirdsGame {
         scene.getEnvironment().set(new ColorAttribute(ColorAttribute.AmbientLight, 0.1f, 0.1f, 0.1f, 1f));
         scene.getEnvironment().set(new ColorAttribute(ColorAttribute.Specular, 1f, 1f, 1f, 1f));
         scene.getEnvironment().add(new PointLight().set(1f, 1f, 1f, 8f, 6f, 7f, 100f));
+        scene.getEnvironment().add(new PointLight().set(1f, 1f, 1f, -4f, 9f, -3f, 50f));
         
         camController = new CameraInputController(camera);
         ThirdsEngine.inputMux.addProcessor(camController);
         
         ModelBuilder modelBuilder = new ModelBuilder();
-        model = modelBuilder.createBox(5f, 5f, 5f,
-            new Material(
-            		ColorAttribute.createDiffuse(Color.GREEN),
-            		ColorAttribute.createSpecular(Color.WHITE)),
-            Usage.Position | Usage.Normal);
-        scene.addObject(new ModelRenderObject(model));
+        modelFloor = modelBuilder.createBox(20f, 1f, 20f,
+	            new Material(
+	            		ColorAttribute.createDiffuse(Color.GREEN)),
+	            Usage.Position | Usage.Normal);
+        modelSphere = modelBuilder.createSphere(2f, 2f, 2f, 32, 16,
+        		new Material(
+        				ColorAttribute.createDiffuse(Color.BLUE)),
+        		Usage.Position | Usage.Normal);
+        
+        scene.addObject(new ModelRenderObject(modelFloor));
+        scene.addObject(new ModelRenderObject(modelSphere, new Vector3(0f, 5f, 0f)));
+        scene.addObject(new ModelRenderObject(modelSphere, new Vector3(1f, 8f, 0f)));
 	}
 	
 	@Override
@@ -51,6 +59,7 @@ public class TestGame extends ThirdsGame {
 	@Override
 	public void dispose() {
 		super.dispose();
-		model.dispose();
+		modelFloor.dispose();
+		modelSphere.dispose();
 	}
 }
