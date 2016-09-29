@@ -43,11 +43,24 @@ public class SphereCollider extends Collider {
 		return new CollisionData(centreDistance < radiusDistance, intersectDistance);
 	}
 	
+	@Override
+	public CollisionData collideAABB(AABBCollider other) {
+		return other.collide(this);
+	}
+	
 	public Vector3 getPos() {
 		return pos;
 	}
 	
+	public void setPos(Vector3 pos) {
+		this.pos = pos;
+	}
+	
 	public float getRadius() {
 		return radius;
+	}
+	
+	public void setRadius(float radius) {
+		this.radius = radius;
 	}
 }
