@@ -42,8 +42,26 @@ public class AABBCollider extends Collider {
 	// TODO
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
-		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: AABB with AABB");
-		return null;
+		
+		Vector3 d1 = other.min.sub(max);
+		Vector3 d2 = min.sub(other.max);
+		
+		// Find max distance
+		Vector3 d = new Vector3(
+				(d1.x>d2.x) ? d1.x : d2.x,
+				(d1.y>d2.y) ? d1.y : d2.y,
+				(d1.z>d2.z) ? d1.z : d2.z);
+		
+		// Find maximum component of 'd'
+		float maxDistance =
+				(d.x > d.y && d.x > d.z) ? d.x :
+				((d.y > d.x && d.y > d.z) ? d.y : d.z);
+		
+		/*
+		 * Does NOT return the physical distance, it does NOT
+		 * return an actual vector length.
+		 */
+		return new CollisionData(maxDistance < 0, maxDistance);
 	}
 	
 	public Vector3 getMin() {
