@@ -11,6 +11,12 @@ import com.thirds.engine.physics.CollisionData;
  * <code>a.collide(b)</code> and it
  * will compute collision data, no
  * questions asked.
+ * 
+ * If a new collider is added, it
+ * shall implement all collision
+ * detection functions with other
+ * colliders rather than amending
+ * already-existing classes.
  */
 public abstract class Collider {
 	
@@ -28,4 +34,18 @@ public abstract class Collider {
 	 * a <code>SphereCollider</code>.
 	 */
 	public abstract CollisionData collideSphere(SphereCollider other);
+	
+	/**
+	 * Compute <code>CollisionData</code> for this
+	 * <code>Collider</code> colliding with
+	 * an <code>AABBCollider</code>.
+	 */
+	public abstract CollisionData collideAABB(AABBCollider other);
+	
+	/**
+	 * Compute <code>CollisionData</code> for this
+	 * <code>Collider</code> colliding with
+	 * an <code>PlaneCollider</code>.
+	 */
+	public abstract CollisionData collidePlane(PlaneCollider other);
 }
