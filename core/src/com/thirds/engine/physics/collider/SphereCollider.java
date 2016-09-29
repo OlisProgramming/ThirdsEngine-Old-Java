@@ -1,20 +1,20 @@
-package com.thirds.engine.physics.bounding;
+package com.thirds.engine.physics.collider;
 
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
 
-public class BoundingSphere extends BoundingObject {
+public class SphereCollider extends Collider {
 
 	private Vector3 pos;
 	private float radius;
 	
-	public BoundingSphere(Vector3 pos, float radius) {
+	public SphereCollider(Vector3 pos, float radius) {
 		this.pos = pos;
 		this.radius = radius;
 	}
 	
 	@Override
-	public CollisionData collideSphere(BoundingSphere other) {
+	public CollisionData collideSphere(SphereCollider other) {
 		
 		/*
 		 * The distance between the edge of this sphere
