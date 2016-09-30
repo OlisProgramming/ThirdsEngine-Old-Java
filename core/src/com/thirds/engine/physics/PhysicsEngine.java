@@ -1,9 +1,8 @@
 package com.thirds.engine.physics;
 
 import com.badlogic.gdx.utils.Array;
-import com.thirds.engine.Renderable;
 
-public class PhysicsEngine implements Renderable {
+public class PhysicsEngine implements Simulatable {
 
 	private Array<PhysicsObject> objects;
 	
@@ -23,12 +22,8 @@ public class PhysicsEngine implements Renderable {
 	 * Simulate all physics objects.
 	 */
 	@Override
-	public void tick() {
+	public void simulate() {
 		for (PhysicsObject object : objects)
 			object.simulate();
-	}
-
-	@Override
-	public void render() {
 	}
 }

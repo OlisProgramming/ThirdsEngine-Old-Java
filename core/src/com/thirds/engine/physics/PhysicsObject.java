@@ -3,7 +3,7 @@ package com.thirds.engine.physics;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 
-public class PhysicsObject {
+public class PhysicsObject implements Simulatable {
 
 	public static enum PhysicsSimulationType {
 		STATIC,
@@ -24,6 +24,7 @@ public class PhysicsObject {
 		velocity = new Vector3(1f, 2f, 3f);
 	}
 
+	@Override
 	public void simulate() {
 		if (simType == PhysicsSimulationType.STATIC) {
 			// Do nothing for static objects
