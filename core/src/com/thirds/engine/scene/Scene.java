@@ -7,22 +7,30 @@ import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.thirds.engine.Renderable;
+import com.thirds.engine.physics.PhysicsEngine;
+import com.thirds.engine.physics.PhysicsObject;
 import com.thirds.engine.scene.object.GameObject;
 
 public class Scene implements Renderable, Disposable {
 	
 	private Array<GameObject> objects;
 	private Environment environment;
+	private PhysicsEngine physicsEngine;
 	
 	public Scene() {
 		// False means an unordered list of objects.
 		// Omit argument if ordering is necessary.
 		objects = new Array<GameObject>(false, 50);
 		environment = new Environment();
+		physicsEngine = new PhysicsEngine();
 	}
 	
 	public void addObject(GameObject object) {
 		objects.add(object);
+	}
+	
+	public void addPhysicsObject(PhysicsObject object) {
+		physicsEngine.addObject(object);
 	}
 	
 	public void setAmbientLight(float intensity) {
@@ -43,6 +51,7 @@ public class Scene implements Renderable, Disposable {
 	
 	@Override
 	public void tick() {
+		physicsEngine.simulate();
 		for (GameObject object : objects)
 			object.tick();
 	}
