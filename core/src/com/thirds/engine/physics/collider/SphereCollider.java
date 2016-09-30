@@ -13,6 +13,10 @@ public class SphereCollider extends Collider {
 		this.radius = radius;
 	}
 	
+	public SphereCollider(float radius) {
+		this(new Vector3(), radius);
+	}
+
 	@Override
 	public CollisionData collideSphere(SphereCollider other) {
 		
