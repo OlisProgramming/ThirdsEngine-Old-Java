@@ -42,21 +42,9 @@ public class Scene implements Renderable, Disposable {
 	}
 	
 	@Override
-	public void preTick() {
-		for (GameObject object : objects)
-			object.preTick();
-	}
-	
-	@Override
 	public void tick() {
 		for (GameObject object : objects)
 			object.tick();
-	}
-	
-	@Override
-	public void postTick() {
-		for (GameObject object : objects)
-			object.postTick();
 	}
 	
 	@Override
