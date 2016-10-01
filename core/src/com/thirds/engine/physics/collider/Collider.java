@@ -38,7 +38,7 @@ public abstract class Collider {
 		else if (other instanceof PlaneCollider)
 			return collidePlane((PlaneCollider)other);
 		
-		return new CollisionData(false, 0.0f, this, other);
+		return new CollisionData(false, new Vector3(), this, other);
 	}
 	
 	/**

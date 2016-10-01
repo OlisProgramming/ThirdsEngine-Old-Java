@@ -59,15 +59,17 @@ public class AABBCollider extends Collider {
 		point.y = (other.pos.y < min.y) ? min.y : (other.pos.y > max.y) ? max.y : other.pos.y;
 		point.z = (other.pos.z < min.z) ? min.z : (other.pos.z > max.z) ? max.z : other.pos.z;
 		
+		Vector3 direction = point.sub(other.pos);
+		
 		// Get distance between point and centre of sphere
-		float dist = point.sub(other.pos).len();
+		float dist = direction.len();
 		
 		// Get distance between point and edge of sphere
 		float distMinusRad = dist - other.getRadius();
 		
 		Gdx.app.log("", Float.toString(distMinusRad));
 		
-		return new CollisionData(distMinusRad < 0, distMinusRad, this, other);
+		return new CollisionData(distMinusRad < 0, direction, this, other);
 	}
 	
 	@Override
@@ -83,15 +85,15 @@ public class AABBCollider extends Collider {
 				(d1.z>d2.z) ? d1.z : d2.z);
 		
 		// Find maximum component of 'd'
-		float maxDistance =
-				(d.x > d.y && d.x > d.z) ? d.x :
-				((d.y > d.x && d.y > d.z) ? d.y : d.z);
+		boolean xGreatest = d.x > d.y && d.x > d.z;
+		boolean yGreatest = d.y > d.x && d.y > d.z;
+		// implicit zGreatest == !(xGreatest || yGreatest)
+		float maxDistance = xGreatest ? d.x : (yGreatest ? d.y : d.z);
 		
-		/*
-		 * Does NOT return the physical distance, it does NOT
-		 * return an actual vector length.
-		 */
-		return new CollisionData(maxDistance < 0, maxDistance, this, other);
+		return new CollisionData(maxDistance < 0,
+				xGreatest ? new Vector3(maxDistance, 0f, 0f) :
+					(yGreatest ? new Vector3(0f, maxDistance, 0f) : new Vector3(0f, 0f, maxDistance)),
+				this, other);
 	}
 	
 	// TODO

@@ -33,10 +33,14 @@ public class SphereCollider extends Collider {
 		 */
 		float radiusDistance = radius + other.radius;
 		
+		Vector3 direction = other.pos.cpy().sub(pos);
+		
 		/*
 		 * The distance between the centres of the spheres.
 		 */
 		float centreDistance = (other.pos.cpy().sub(pos)).len();
+		
+		direction.scl(1 / centreDistance);
 		
 		/*
 		 * The distance between the closest edges of the
@@ -45,7 +49,9 @@ public class SphereCollider extends Collider {
 		 */
 		float intersectDistance = centreDistance - radiusDistance;
 		
-		return new CollisionData(centreDistance < radiusDistance, intersectDistance, this, other);
+		direction.scl(intersectDistance);
+		
+		return new CollisionData(centreDistance < radiusDistance, direction, this, other);
 	}
 	
 	@Override

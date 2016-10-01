@@ -1,6 +1,7 @@
 package com.thirds.engine.physics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.thirds.engine.physics.collider.Collider;
 
@@ -46,11 +47,17 @@ public class PhysicsEngine implements Simulatable {
 		return collisions;
 	}
 	
+	private Vector3 reflect(Vector3 vector, Vector3 normal) {
+		return vector.cpy().sub(normal.cpy().scl(vector.cpy().dot(normal)).scl(2f));
+	}
+	
 	private void respondToCollisions(Array<CollisionData> collisions) {
 		for (CollisionData collision : collisions) {
+			Vector3 direction = collision.getDirection().nor();
+			
 			// Reverse velocities
-			collision.getA().getOwner().setVelocity(collision.getA().getOwner().getVelocity().scl(-1f));
-			collision.getB().getOwner().setVelocity(collision.getB().getOwner().getVelocity().scl(-1f));
+			collision.getA().getOwner().setVelocity(reflect(collision.getA().getOwner().getVelocity(), direction));
+			collision.getB().getOwner().setVelocity(reflect(collision.getB().getOwner().getVelocity(), direction.scl(-1f)));
 			
 			Gdx.app.log(collision.getA().toString(), collision.getB().toString());
 		}
