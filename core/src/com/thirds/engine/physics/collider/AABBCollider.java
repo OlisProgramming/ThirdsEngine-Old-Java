@@ -48,7 +48,6 @@ public class AABBCollider extends Collider {
 			);
 	}
 	
-	// TODO
 	@Override
 	public CollisionData collideSphere(SphereCollider other) {
 		

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.ThirdsGame;
+import com.thirds.engine.physics.PhysicsObject;
 import com.thirds.engine.physics.PhysicsObjectFactory;
 import com.thirds.engine.scene.object.ModelRenderObject;
 import com.thirds.engine.scene.object.PhysicsModelObject;
@@ -52,7 +53,7 @@ public class TestGame extends ThirdsGame {
         				ColorAttribute.createDiffuse(Color.BLUE)),
         		Usage.Position | Usage.Normal);
         
-        scene.addObject(new ModelRenderObject(modelFloor));
+        scene.addObject(new ModelRenderObject(modelFloor, new Vector3(0f, -0.5f, 0f)));
         
         PhysicsModelObject sphere1 = new PhysicsModelObject(
         		PhysicsObjectFactory.createSphere(new Vector3(5f, 2f, 0f), 1f), modelSphere);
@@ -93,6 +94,23 @@ public class TestGame extends ThirdsGame {
         box3.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
         scene.addObject(box3);
         scene.addPhysicsObject(box3.getPhysicsObject());
+        
+        ////
+        
+        PhysicsObject plane = PhysicsObjectFactory.createPlane(new Vector3(0f, 1f, 0f), 0f);
+        scene.addPhysicsObject(plane);
+        
+        PhysicsModelObject box4 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createAABB(new Vector3(5f, 5f, 3f), 2f, 2f, 2f), modelBox);
+        box4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
+        scene.addObject(box4);
+        scene.addPhysicsObject(box4.getPhysicsObject());
+        
+        PhysicsModelObject sphere4 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createSphere(new Vector3(-5f, 5f, 3f), 1f), modelSphere);
+        sphere4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
+        scene.addObject(sphere4);
+        scene.addPhysicsObject(sphere4.getPhysicsObject());
 	}
 	
 	@Override
