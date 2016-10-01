@@ -13,6 +13,19 @@ public class AABBCollider extends Collider {
 	private Vector3 max;
 
 	/**
+	 * Alternative constructor for AABBCollider.
+	 * @param x the width of the AABB
+	 * @param y the height of the AABB
+	 * @param z the depth of the AABB
+	 */
+	public AABBCollider(PhysicsObject owner, Vector3 pos, float x, float y, float z) {
+		super(owner);
+		setPos(pos);
+		setMin(pos.cpy().sub(x/2f, y/2f, z/2f));
+		setMax(pos.cpy().add(x/2f, y/2f, z/2f));
+	}
+	
+	/**
 	 * @param a one extent of the AABB, not necessarily the minimum or maximum
 	 * @param b the other extent of the AABB, not necessarily the minimum or maximum
 	 */
@@ -70,6 +83,14 @@ public class AABBCollider extends Collider {
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
 		return other.collideAABB(this);
+	}
+	
+	@Override
+	public void setPos(Vector3 pos) {
+		super.setPos(pos);
+		
+		setMin(pos.cpy().sub(pos.x/2f, pos.y/2f, pos.z/2f));
+		setMax(pos.cpy().add(pos.x/2f, pos.y/2f, pos.z/2f));
 	}
 	
 	public Vector3 getMin() {
