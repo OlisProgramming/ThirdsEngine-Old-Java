@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.ThirdsGame;
+import com.thirds.engine.physics.PhysicsObject;
 import com.thirds.engine.physics.PhysicsObjectFactory;
 import com.thirds.engine.scene.object.ModelRenderObject;
 import com.thirds.engine.scene.object.PhysicsModelObject;
@@ -68,7 +69,7 @@ public class TestGame extends ThirdsGame {
         
         ////
         
-        /*PhysicsModelObject box1 = new PhysicsModelObject(
+        PhysicsModelObject box1 = new PhysicsModelObject(
         		PhysicsObjectFactory.createAABB(new Vector3(5f, 5f, 0f), 2f, 2f, 2f), modelBox);
         box1.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
         scene.addObject(box1);
@@ -109,7 +110,7 @@ public class TestGame extends ThirdsGame {
         		PhysicsObjectFactory.createSphere(new Vector3(-5f, 5f, 3f), 1f), modelSphere);
         sphere4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
         scene.addObject(sphere4);
-        scene.addPhysicsObject(sphere4.getPhysicsObject());*/
+        scene.addPhysicsObject(sphere4.getPhysicsObject());
 	}
 	
 	@Override
