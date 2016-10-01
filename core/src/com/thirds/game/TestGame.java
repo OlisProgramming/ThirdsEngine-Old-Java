@@ -54,7 +54,7 @@ public class TestGame extends ThirdsGame {
         PhysicsModelObject sphere1 = new PhysicsModelObject(new PhysicsObject(
         		new Vector3(5f, 2f, 0f)
         		), modelSphere);
-        sphere1.getPhysicsObject().setCollider(new SphereCollider(sphere1.getPhysicsObject(), 2f));
+        sphere1.getPhysicsObject().setCollider(new SphereCollider(sphere1.getPhysicsObject(), 1f));
         sphere1.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
         scene.addObject(sphere1);
         scene.addPhysicsObject(sphere1.getPhysicsObject());
@@ -62,7 +62,7 @@ public class TestGame extends ThirdsGame {
         PhysicsModelObject sphere2 = new PhysicsModelObject(new PhysicsObject(
         		new Vector3(-5f, 2f, 0f)
         		), modelSphere);
-        sphere2.getPhysicsObject().setCollider(new SphereCollider(sphere2.getPhysicsObject(), 2f));
+        sphere2.getPhysicsObject().setCollider(new SphereCollider(sphere2.getPhysicsObject(), 1f));
         sphere2.getPhysicsObject().setVelocity(new Vector3(0.3f, 0f, 0f));
         scene.addObject(sphere2);
         scene.addPhysicsObject(sphere2.getPhysicsObject());
