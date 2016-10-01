@@ -89,8 +89,10 @@ public class AABBCollider extends Collider {
 	public void setPos(Vector3 pos) {
 		super.setPos(pos);
 		
-		setMin(pos.cpy().sub(pos.x/2f, pos.y/2f, pos.z/2f));
-		setMax(pos.cpy().add(pos.x/2f, pos.y/2f, pos.z/2f));
+		Vector3 halfDimensions = getMax().cpy().sub(getMin()).scl(0.5f);
+		
+		setMin(pos.cpy().sub(halfDimensions));
+		setMax(pos.cpy().add(halfDimensions));
 	}
 	
 	public Vector3 getMin() {
