@@ -1,5 +1,6 @@
 package com.thirds.engine.physics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.thirds.engine.physics.collider.Collider;
 
@@ -37,8 +38,8 @@ public class PhysicsEngine implements Simulatable {
 						((Collider)objects.get(i).getCollider()).collide
 						((Collider)objects.get(j).getCollider());
 				
-				if (data.getDoesIntersect())
-					collisions.add(data);
+				Gdx.app.log("", Float.toString(data.getDistance()));
+					//collisions.add(data);
 			}
 		}
 		
@@ -48,12 +49,15 @@ public class PhysicsEngine implements Simulatable {
 	private void respondToCollisions(Array<CollisionData> collisions) {
 		for (CollisionData collision : collisions) {
 			// Reverse velocities
-			collision.getA().getOwner().setVelocity(collision.getA().getOwner().getVelocity().scl(-1f));
-			collision.getB().getOwner().setVelocity(collision.getB().getOwner().getVelocity().scl(-1f));
+			//collision.getA().getOwner().setVelocity(collision.getA().getOwner().getVelocity().scl(-1f));
+			//collision.getB().getOwner().setVelocity(collision.getB().getOwner().getVelocity().scl(-1f));
+			
+			Gdx.app.log(collision.getA().toString(), collision.getB().toString());
 		}
+		Gdx.app.log("", "");
 	}
 	
 	public void handleCollisions() {
-		//respondToCollisions(detectCollisions());
+		respondToCollisions(detectCollisions());
 	}
 }

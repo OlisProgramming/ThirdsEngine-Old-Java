@@ -24,10 +24,6 @@ public class PhysicsObject implements Simulatable {
 	
 	public PhysicsObject(Vector3 pos, PhysicsSimulationType simType) {
 		this.pos = pos;
-		if (collider instanceof SphereCollider)
-			((SphereCollider) collider).setPos(pos);
-		else
-			Gdx.app.error("UNIMPLEMENTED", "Colliders apart from SphereCollider");
 		this.simType = simType;
 		velocity = new Vector3();
 	}
@@ -37,8 +33,15 @@ public class PhysicsObject implements Simulatable {
 		if (simType == PhysicsSimulationType.STATIC) {
 			// Do nothing for static objects
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
-			pos.set(pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK)));
-			Gdx.app.log(toString(), pos.toString());
+			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
+			
+			if (collider instanceof SphereCollider) {
+				((SphereCollider)(collider)).setPos(pos);
+				Gdx.app.log("obj", pos.toString());
+			} else {
+				Gdx.app.log("UNIMPLEMENTED", "Colliders apart from SphereCollider in PhysicsObject.simulate");
+				new Exception().printStackTrace();
+			}
 		}
 	}
 	

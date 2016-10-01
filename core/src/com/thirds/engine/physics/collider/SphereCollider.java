@@ -37,7 +37,7 @@ public class SphereCollider extends Collider {
 		/*
 		 * The distance between the centres of the spheres.
 		 */
-		float centreDistance = (other.pos.sub(pos)).len();
+		float centreDistance = (other.pos.cpy().sub(pos)).len();
 		
 		/*
 		 * The distance between the closest edges of the
