@@ -59,15 +59,17 @@ public class AABBCollider extends Collider {
 		point.y = (other.pos.y < min.y) ? min.y : (other.pos.y > max.y) ? max.y : other.pos.y;
 		point.z = (other.pos.z < min.z) ? min.z : (other.pos.z > max.z) ? max.z : other.pos.z;
 		
+		Vector3 direction = point.sub(other.pos);
+		
 		// Get distance between point and centre of sphere
-		float dist = point.sub(other.pos).len();
+		float dist = direction.len();
 		
 		// Get distance between point and edge of sphere
 		float distMinusRad = dist - other.getRadius();
 		
 		Gdx.app.log("", Float.toString(distMinusRad));
 		
-		return new CollisionData(distMinusRad < 0, distMinusRad, this, other);
+		return new CollisionData(distMinusRad < 0, direction, this, other);
 	}
 	
 	@Override
@@ -91,7 +93,7 @@ public class AABBCollider extends Collider {
 		 * Does NOT return the physical distance, it does NOT
 		 * return an actual vector length.
 		 */
-		return new CollisionData(maxDistance < 0, maxDistance, this, other);
+		return new CollisionData(maxDistance < 0, d, this, other);
 	}
 	
 	// TODO

@@ -1,6 +1,5 @@
 package com.thirds.engine.physics.collider;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
 import com.thirds.engine.physics.PhysicsObject;
@@ -27,7 +26,7 @@ public class PlaneCollider extends Collider {
 		float distanceFromSphereCentre = Math.abs(normal.dot(other.getPos()) + distance);
 		float distanceFromSphere = distanceFromSphereCentre - other.getRadius();
 		
-		return new CollisionData(distanceFromSphere < 0, distanceFromSphere, this, other);
+		return new CollisionData(distanceFromSphere < 0, normal.cpy().scl(distanceFromSphere), this, other);
 	}
 
 	@Override
@@ -49,13 +48,13 @@ public class PlaneCollider extends Collider {
 			}
 		}
 		
-		return new CollisionData(closestDistance < 0, closestDistance, this, other);
+		return new CollisionData(closestDistance < 0, normal.cpy().scl(closestDistance), this, other);
 	}
 
 	// Planes do not need to collide with planes, they are infinitely large
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
-		return new CollisionData(false, 0f, null, null);
+		return new CollisionData(false, new Vector3(), null, null);
 	}
 
 	public Vector3 getNormal() {

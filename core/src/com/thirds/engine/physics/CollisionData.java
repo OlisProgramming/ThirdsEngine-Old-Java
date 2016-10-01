@@ -1,18 +1,24 @@
 package com.thirds.engine.physics;
 
+import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.collider.Collider;
 
 public class CollisionData {
 
 	private boolean doesIntersect;
-	private float distance;
+	/**
+	 * Direction of collision. The length of this vector
+	 * is the distance inside each object the collision
+	 * occurred at.
+	 */
+	private Vector3 direction;
 	
 	private Collider a;
 	private Collider b;
 	
-	public CollisionData(boolean doesIntersect, float distance, Collider a, Collider b) {
+	public CollisionData(boolean doesIntersect, Vector3 direction, Collider a, Collider b) {
 		this.doesIntersect = doesIntersect;
-		this.distance = distance;
+		this.direction = direction;
 		setA(a);
 		setB(b);
 	}
@@ -21,8 +27,8 @@ public class CollisionData {
 		return doesIntersect;
 	}
 
-	public float getDistance() {
-		return distance;
+	public Vector3 getDirection() {
+		return direction;
 	}
 
 	public Collider getA() {
