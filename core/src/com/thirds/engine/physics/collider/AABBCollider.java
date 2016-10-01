@@ -13,6 +13,19 @@ public class AABBCollider extends Collider {
 	private Vector3 max;
 
 	/**
+	 * Alternative constructor for AABBCollider.
+	 * @param x the width of the AABB
+	 * @param y the height of the AABB
+	 * @param z the depth of the AABB
+	 */
+	public AABBCollider(PhysicsObject owner, Vector3 pos, float x, float y, float z) {
+		super(owner);
+		super.setPos(pos);
+		setMin(pos.cpy().sub(x/2f, y/2f, z/2f));
+		setMax(pos.cpy().add(x/2f, y/2f, z/2f));
+	}
+	
+	/**
 	 * @param a one extent of the AABB, not necessarily the minimum or maximum
 	 * @param b the other extent of the AABB, not necessarily the minimum or maximum
 	 */
@@ -35,18 +48,33 @@ public class AABBCollider extends Collider {
 			);
 	}
 	
-	// TODO
 	@Override
 	public CollisionData collideSphere(SphereCollider other) {
-		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: AABB with Sphere");
-		return null;
+		
+		// Get closest point on AABB
+		Vector3 point;
+		point = new Vector3();
+		
+		point.x = (other.pos.x < min.x) ? min.x : (other.pos.x > max.x) ? max.x : other.pos.x;
+		point.y = (other.pos.y < min.y) ? min.y : (other.pos.y > max.y) ? max.y : other.pos.y;
+		point.z = (other.pos.z < min.z) ? min.z : (other.pos.z > max.z) ? max.z : other.pos.z;
+		
+		// Get distance between point and centre of sphere
+		float dist = point.sub(other.pos).len();
+		
+		// Get distance between point and edge of sphere
+		float distMinusRad = dist - other.getRadius();
+		
+		Gdx.app.log("", Float.toString(distMinusRad));
+		
+		return new CollisionData(distMinusRad < 0, distMinusRad, this, other);
 	}
 	
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
 		
-		Vector3 d1 = other.min.sub(max);
-		Vector3 d2 = min.sub(other.max);
+		Vector3 d1 = other.min.cpy().sub(max);
+		Vector3 d2 = min.cpy().sub(other.max);
 		
 		// Find max distance
 		Vector3 d = new Vector3(
@@ -70,6 +98,18 @@ public class AABBCollider extends Collider {
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
 		return other.collideAABB(this);
+	}
+	
+	@Override
+	public void setPos(Vector3 pos) {
+		super.setPos(pos);
+		
+		// The first time setters have actually been useful for me
+		
+		Vector3 halfDimensions = getMax().cpy().sub(getMin()).scl(0.5f);
+		
+		setMin(pos.cpy().sub(halfDimensions));
+		setMax(pos.cpy().add(halfDimensions));
 	}
 	
 	public Vector3 getMin() {

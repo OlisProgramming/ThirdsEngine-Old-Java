@@ -1,10 +1,8 @@
 package com.thirds.engine.physics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.physics.collider.Collider;
-import com.thirds.engine.physics.collider.SphereCollider;
 
 public class PhysicsObject implements Simulatable {
 
@@ -17,6 +15,10 @@ public class PhysicsObject implements Simulatable {
 	private Vector3 pos;
 	private Vector3 velocity;
 	private Collider collider;
+	
+	public PhysicsObject() {
+		this(new Vector3());
+	}
 	
 	public PhysicsObject(Vector3 pos) {
 		this(pos, PhysicsSimulationType.DYNAMIC);
@@ -34,14 +36,7 @@ public class PhysicsObject implements Simulatable {
 			// Do nothing for static objects
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
-			
-			if (collider instanceof SphereCollider) {
-				((SphereCollider)(collider)).setPos(pos);
-				Gdx.app.log("obj", pos.toString());
-			} else {
-				Gdx.app.log("UNIMPLEMENTED", "Colliders apart from SphereCollider in PhysicsObject.simulate");
-				new Exception().printStackTrace();
-			}
+			collider.setPos(pos);
 		}
 	}
 	

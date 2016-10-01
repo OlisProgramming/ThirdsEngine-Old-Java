@@ -1,5 +1,6 @@
 package com.thirds.engine.physics.collider;
 
+import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
 import com.thirds.engine.physics.PhysicsObject;
 
@@ -22,6 +23,7 @@ import com.thirds.engine.physics.PhysicsObject;
 public abstract class Collider {
 	
 	protected PhysicsObject owner;
+	protected Vector3 pos;
 	
 	public Collider(PhysicsObject owner) {
 		this.owner = owner;
@@ -31,6 +33,10 @@ public abstract class Collider {
 		
 		if (other instanceof SphereCollider)
 			return collideSphere((SphereCollider)other);
+		else if (other instanceof AABBCollider)
+			return collideAABB((AABBCollider)other);
+		else if (other instanceof PlaneCollider)
+			return collidePlane((PlaneCollider)other);
 		
 		return new CollisionData(false, 0.0f, this, other);
 	}
@@ -58,5 +64,13 @@ public abstract class Collider {
 
 	public PhysicsObject getOwner() {
 		return owner;
+	}
+
+	public Vector3 getPos() {
+		return pos;
+	}
+
+	public void setPos(Vector3 pos) {
+		this.pos = pos;
 	}
 }

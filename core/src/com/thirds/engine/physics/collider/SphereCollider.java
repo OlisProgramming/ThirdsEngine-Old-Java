@@ -6,12 +6,11 @@ import com.thirds.engine.physics.PhysicsObject;
 
 public class SphereCollider extends Collider {
 
-	private Vector3 pos;
 	private float radius;
 	
 	public SphereCollider(PhysicsObject owner, Vector3 pos, float radius) {
 		super(owner);
-		this.pos = pos;
+		setPos(pos);
 		this.radius = radius;
 	}
 	
@@ -57,14 +56,6 @@ public class SphereCollider extends Collider {
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
 		return other.collideSphere(this);
-	}
-	
-	public Vector3 getPos() {
-		return pos;
-	}
-	
-	public void setPos(Vector3 pos) {
-		this.pos = pos;
 	}
 	
 	public float getRadius() {

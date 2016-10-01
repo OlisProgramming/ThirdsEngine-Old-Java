@@ -30,18 +30,32 @@ public class PlaneCollider extends Collider {
 		return new CollisionData(distanceFromSphere < 0, distanceFromSphere, this, other);
 	}
 
-	// TODO
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
-		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: Plane with AABB");
-		return null;
+		
+		float closestDistance = Integer.MAX_VALUE;
+		for (int i=0; i<2; i++) {
+			for (int j=0; j<2; j++) {
+				for(int k=0; k<2; k++) {
+					Vector3 point = new Vector3(
+							i==0 ? other.getMin().x : other.getMax().x,
+							j==0 ? other.getMin().y : other.getMax().y,
+							k==0 ? other.getMin().z : other.getMax().z);
+					// Point will loop through all eight points on the AABB
+					float distanceToPoint = normal.dot(point) + distance;
+					if (distanceToPoint < closestDistance)
+						closestDistance = distanceToPoint;
+				}
+			}
+		}
+		
+		return new CollisionData(closestDistance < 0, closestDistance, this, other);
 	}
 
-	// TODO
+	// Planes do not need to collide with planes, they are infinitely large
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
-		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: Plane with Plane");
-		return null;
+		return new CollisionData(false, 0f, null, null);
 	}
 
 	public Vector3 getNormal() {
