@@ -51,9 +51,24 @@ public class AABBCollider extends Collider {
 	// TODO
 	@Override
 	public CollisionData collideSphere(SphereCollider other) {
-		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: AABB with Sphere");
-		new Exception().printStackTrace();
-		return new CollisionData(false, 0f, null, null);
+		
+		// Get closest point on AABB
+		Vector3 point;
+		point = new Vector3();
+		
+		point.x = (other.pos.x < min.x) ? min.x : (other.pos.x > max.x) ? max.x : other.pos.x;
+		point.y = (other.pos.y < min.y) ? min.y : (other.pos.y > max.y) ? max.y : other.pos.y;
+		point.z = (other.pos.z < min.z) ? min.z : (other.pos.z > max.z) ? max.z : other.pos.z;
+		
+		// Get distance between point and centre of sphere
+		float dist = point.sub(other.pos).len();
+		
+		// Get distance between point and edge of sphere
+		float distMinusRad = dist - other.getRadius();
+		
+		Gdx.app.log("", Float.toString(distMinusRad));
+		
+		return new CollisionData(distMinusRad < 0, distMinusRad, this, other);
 	}
 	
 	@Override
@@ -72,8 +87,6 @@ public class AABBCollider extends Collider {
 		float maxDistance =
 				(d.x > d.y && d.x > d.z) ? d.x :
 				((d.y > d.x && d.y > d.z) ? d.y : d.z);
-		
-		Gdx.app.log("", d.toString());
 		
 		/*
 		 * Does NOT return the physical distance, it does NOT
