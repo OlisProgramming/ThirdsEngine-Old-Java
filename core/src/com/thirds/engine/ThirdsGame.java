@@ -77,20 +77,10 @@ public class ThirdsGame implements Renderable, Disposable {
 	public Scene getScene() {
 		return scene;
 	}
-
-	@Override
-	public void preTick() {
-		scene.preTick();
-	}
 	
 	@Override
 	public void tick() {
 		scene.tick();
-	}
-	
-	@Override
-	public void postTick() {
-		scene.postTick();
 	}
 	
 	@Override

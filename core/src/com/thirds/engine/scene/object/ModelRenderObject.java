@@ -12,7 +12,7 @@ public class ModelRenderObject extends GameObject {
 	/**
 	 * Model instance, NOT a model.
 	 */
-	private ModelInstance model;
+	protected ModelInstance model;
 	
 	public ModelRenderObject(ModelInstance model) {
 		this.model = model;

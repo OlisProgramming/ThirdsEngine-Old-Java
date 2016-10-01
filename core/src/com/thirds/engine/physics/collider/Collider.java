@@ -1,6 +1,7 @@
 package com.thirds.engine.physics.collider;
 
 import com.thirds.engine.physics.CollisionData;
+import com.thirds.engine.physics.PhysicsObject;
 
 /**
  * Any colliding object, for instance
@@ -20,12 +21,18 @@ import com.thirds.engine.physics.CollisionData;
  */
 public abstract class Collider {
 	
+	protected PhysicsObject owner;
+	
+	public Collider(PhysicsObject owner) {
+		this.owner = owner;
+	}
+	
 	public CollisionData collide(Collider other) {
 		
 		if (other instanceof SphereCollider)
 			return collideSphere((SphereCollider)other);
 		
-		return new CollisionData(false, 0.0f);
+		return new CollisionData(false, 0.0f, this, other);
 	}
 	
 	/**
@@ -48,4 +55,8 @@ public abstract class Collider {
 	 * an <code>PlaneCollider</code>.
 	 */
 	public abstract CollisionData collidePlane(PlaneCollider other);
+
+	public PhysicsObject getOwner() {
+		return owner;
+	}
 }
