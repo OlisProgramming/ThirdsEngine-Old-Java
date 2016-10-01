@@ -89,6 +89,8 @@ public class AABBCollider extends Collider {
 	public void setPos(Vector3 pos) {
 		super.setPos(pos);
 		
+		// The first time setters have actually been useful for me
+		
 		Vector3 halfDimensions = getMax().cpy().sub(getMin()).scl(0.5f);
 		
 		setMin(pos.cpy().sub(halfDimensions));

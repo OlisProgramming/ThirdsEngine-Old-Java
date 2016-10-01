@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.ThirdsGame;
 import com.thirds.engine.physics.PhysicsObject;
+import com.thirds.engine.physics.PhysicsObjectFactory;
 import com.thirds.engine.physics.collider.SphereCollider;
 import com.thirds.engine.scene.object.ModelRenderObject;
 import com.thirds.engine.scene.object.PhysicsModelObject;
@@ -51,18 +52,23 @@ public class TestGame extends ThirdsGame {
         
         scene.addObject(new ModelRenderObject(modelFloor));
         
-        PhysicsModelObject sphere1 = new PhysicsModelObject(new PhysicsObject(
+        PhysicsModelObject sphere1 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createSphere(new Vector3(5f, 2f, 0f), 1f), modelSphere);
+        
+        /*PhysicsModelObject sphere1 = new PhysicsModelObject(new PhysicsObject(
         		new Vector3(5f, 2f, 0f)
         		), modelSphere);
-        sphere1.getPhysicsObject().setCollider(new SphereCollider(sphere1.getPhysicsObject(), 1f));
+        sphere1.getPhysicsObject().setCollider(new SphereCollider(sphere1.getPhysicsObject(), 1f));*/
         sphere1.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
         scene.addObject(sphere1);
         scene.addPhysicsObject(sphere1.getPhysicsObject());
         
-        PhysicsModelObject sphere2 = new PhysicsModelObject(new PhysicsObject(
+        PhysicsModelObject sphere2 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createSphere(new Vector3(-5f, 2f, 0f), 1f), modelSphere);
+        /*PhysicsModelObject sphere2 = new PhysicsModelObject(new PhysicsObject(
         		new Vector3(-5f, 2f, 0f)
         		), modelSphere);
-        sphere2.getPhysicsObject().setCollider(new SphereCollider(sphere2.getPhysicsObject(), 1f));
+        sphere2.getPhysicsObject().setCollider(new SphereCollider(sphere2.getPhysicsObject(), 1f));*/
         sphere2.getPhysicsObject().setVelocity(new Vector3(0.3f, 0f, 0f));
         scene.addObject(sphere2);
         scene.addPhysicsObject(sphere2.getPhysicsObject());
