@@ -33,6 +33,10 @@ public abstract class Collider {
 		
 		if (other instanceof SphereCollider)
 			return collideSphere((SphereCollider)other);
+		else if (other instanceof AABBCollider)
+			return collideAABB((AABBCollider)other);
+		else if (other instanceof PlaneCollider)
+			return collidePlane((PlaneCollider)other);
 		
 		return new CollisionData(false, 0.0f, this, other);
 	}

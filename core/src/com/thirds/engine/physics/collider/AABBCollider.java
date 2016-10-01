@@ -20,7 +20,7 @@ public class AABBCollider extends Collider {
 	 */
 	public AABBCollider(PhysicsObject owner, Vector3 pos, float x, float y, float z) {
 		super(owner);
-		setPos(pos);
+		super.setPos(pos);
 		setMin(pos.cpy().sub(x/2f, y/2f, z/2f));
 		setMax(pos.cpy().add(x/2f, y/2f, z/2f));
 	}
@@ -52,14 +52,15 @@ public class AABBCollider extends Collider {
 	@Override
 	public CollisionData collideSphere(SphereCollider other) {
 		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: AABB with Sphere");
-		return null;
+		new Exception().printStackTrace();
+		return new CollisionData(false, 0f, null, null);
 	}
 	
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
 		
-		Vector3 d1 = other.min.sub(max);
-		Vector3 d2 = min.sub(other.max);
+		Vector3 d1 = other.min.cpy().sub(max);
+		Vector3 d2 = min.cpy().sub(other.max);
 		
 		// Find max distance
 		Vector3 d = new Vector3(
@@ -71,6 +72,8 @@ public class AABBCollider extends Collider {
 		float maxDistance =
 				(d.x > d.y && d.x > d.z) ? d.x :
 				((d.y > d.x && d.y > d.z) ? d.y : d.z);
+		
+		Gdx.app.log("", d.toString());
 		
 		/*
 		 * Does NOT return the physical distance, it does NOT

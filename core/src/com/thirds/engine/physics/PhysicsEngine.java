@@ -38,7 +38,6 @@ public class PhysicsEngine implements Simulatable {
 						((Collider)objects.get(i).getCollider()).collide
 						((Collider)objects.get(j).getCollider());
 				
-				Gdx.app.log("", Float.toString(data.getDistance()));
 				if (data.getDoesIntersect())
 					collisions.add(data);
 			}
@@ -55,7 +54,6 @@ public class PhysicsEngine implements Simulatable {
 			
 			Gdx.app.log(collision.getA().toString(), collision.getB().toString());
 		}
-		Gdx.app.log("", "");
 	}
 	
 	public void handleCollisions() {

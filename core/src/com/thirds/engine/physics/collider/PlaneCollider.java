@@ -34,14 +34,16 @@ public class PlaneCollider extends Collider {
 	@Override
 	public CollisionData collideAABB(AABBCollider other) {
 		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: Plane with AABB");
-		return null;
+		new Exception().printStackTrace();
+		return new CollisionData(false, 0f, null, null);
 	}
 
 	// TODO
 	@Override
 	public CollisionData collidePlane(PlaneCollider other) {
 		Gdx.app.error("UNIMPLEMENTED METHOD", "Collide: Plane with Plane");
-		return null;
+		new Exception().printStackTrace();
+		return new CollisionData(false, 0f, null, null);
 	}
 
 	public Vector3 getNormal() {
