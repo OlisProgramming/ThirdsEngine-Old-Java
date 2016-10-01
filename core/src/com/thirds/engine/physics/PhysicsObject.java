@@ -18,19 +18,18 @@ public class PhysicsObject implements Simulatable {
 	private Vector3 velocity;
 	private Collider collider;
 	
-	public PhysicsObject(Vector3 pos, Collider collider) {
-		this(pos, collider, PhysicsSimulationType.DYNAMIC);
+	public PhysicsObject(Vector3 pos) {
+		this(pos, PhysicsSimulationType.DYNAMIC);
 	}
 	
-	public PhysicsObject(Vector3 pos, Collider collider, PhysicsSimulationType simType) {
+	public PhysicsObject(Vector3 pos, PhysicsSimulationType simType) {
 		this.pos = pos;
-		this.collider = collider;
 		if (collider instanceof SphereCollider)
 			((SphereCollider) collider).setPos(pos);
 		else
 			Gdx.app.error("UNIMPLEMENTED", "Colliders apart from SphereCollider");
 		this.simType = simType;
-		velocity = new Vector3(1f, 2f, 3f);
+		velocity = new Vector3();
 	}
 
 	@Override
@@ -38,10 +37,27 @@ public class PhysicsObject implements Simulatable {
 		if (simType == PhysicsSimulationType.STATIC) {
 			// Do nothing for static objects
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
-			pos.add(velocity.scl(ThirdsEngine.SECONDS_PER_TICK));
+			pos.set(pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK)));
+			Gdx.app.log(toString(), pos.toString());
 		}
 	}
 	
+	public PhysicsSimulationType getSimType() {
+		return simType;
+	}
+
+	public void setSimType(PhysicsSimulationType simType) {
+		this.simType = simType;
+	}
+
+	public Collider getCollider() {
+		return collider;
+	}
+
+	public void setCollider(Collider collider) {
+		this.collider = collider;
+	}
+
 	public Vector3 getPos() {
 		return pos;
 	}

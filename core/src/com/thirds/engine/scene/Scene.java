@@ -52,6 +52,7 @@ public class Scene implements Renderable, Disposable {
 	@Override
 	public void tick() {
 		physicsEngine.simulate();
+		physicsEngine.handleCollisions();
 		for (GameObject object : objects)
 			object.tick();
 	}

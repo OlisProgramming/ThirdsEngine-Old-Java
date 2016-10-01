@@ -2,19 +2,21 @@ package com.thirds.engine.physics.collider;
 
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
+import com.thirds.engine.physics.PhysicsObject;
 
 public class SphereCollider extends Collider {
 
 	private Vector3 pos;
 	private float radius;
 	
-	public SphereCollider(Vector3 pos, float radius) {
+	public SphereCollider(PhysicsObject owner, Vector3 pos, float radius) {
+		super(owner);
 		this.pos = pos;
 		this.radius = radius;
 	}
 	
-	public SphereCollider(float radius) {
-		this(new Vector3(), radius);
+	public SphereCollider(PhysicsObject owner, float radius) {
+		this(owner, new Vector3(), radius);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class SphereCollider extends Collider {
 		 */
 		float intersectDistance = centreDistance - radiusDistance;
 		
-		return new CollisionData(centreDistance < radiusDistance, intersectDistance);
+		return new CollisionData(centreDistance < radiusDistance, intersectDistance, this, other);
 	}
 	
 	@Override

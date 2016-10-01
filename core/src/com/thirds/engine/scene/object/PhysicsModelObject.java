@@ -26,7 +26,6 @@ public class PhysicsModelObject extends ModelRenderObject {
 	@Override
 	public void tick() {
 		super.tick();
-		physicsObject.getVelocity().y -= 0.3f;
 		physicsObject.simulate();
 		model.transform.setTranslation(physicsObject.getPos());
 	}

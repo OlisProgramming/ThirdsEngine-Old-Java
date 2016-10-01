@@ -3,6 +3,7 @@ package com.thirds.engine.physics.collider;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
+import com.thirds.engine.physics.PhysicsObject;
 
 public class AABBCollider extends Collider {
 
@@ -15,7 +16,9 @@ public class AABBCollider extends Collider {
 	 * @param a one extent of the AABB, not necessarily the minimum or maximum
 	 * @param b the other extent of the AABB, not necessarily the minimum or maximum
 	 */
-	public AABBCollider(Vector3 a, Vector3 b) {
+	public AABBCollider(PhysicsObject owner, Vector3 a, Vector3 b) {
+		super(owner);
+		
 		/*
 		 * Select minimum and maximum values of
 		 * the x, y and z coordinates
@@ -60,7 +63,7 @@ public class AABBCollider extends Collider {
 		 * Does NOT return the physical distance, it does NOT
 		 * return an actual vector length.
 		 */
-		return new CollisionData(maxDistance < 0, maxDistance);
+		return new CollisionData(maxDistance < 0, maxDistance, this, other);
 	}
 	
 	// TODO
