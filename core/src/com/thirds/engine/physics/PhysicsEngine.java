@@ -3,11 +3,14 @@ package com.thirds.engine.physics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.physics.PhysicsObject.PhysicsSimulationType;
 import com.thirds.engine.physics.collider.Collider;
 
 public class PhysicsEngine implements Simulatable {
 
+	public static final Vector3 GRAVITY_PER_SECOND = new Vector3(0f, -9.81f, 0f);
+	public static final Vector3 GRAVITY_PER_TICK = new Vector3(0f, -9.81f * ThirdsEngine.SECONDS_PER_TICK, 0f);
 	private Array<PhysicsObject> objects;
 	
 	public PhysicsEngine() {

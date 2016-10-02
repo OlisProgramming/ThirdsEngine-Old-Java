@@ -35,6 +35,9 @@ public class PhysicsObject implements Simulatable {
 		if (simType == PhysicsSimulationType.STATIC) {
 			// Do nothing for static objects
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
+			// Change velocity to add gravity
+			velocity.add(PhysicsEngine.GRAVITY_PER_TICK);
+			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
 			collider.setPos(pos);
 		}
