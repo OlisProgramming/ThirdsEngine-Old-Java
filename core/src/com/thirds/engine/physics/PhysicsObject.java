@@ -3,6 +3,7 @@ package com.thirds.engine.physics;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.physics.collider.Collider;
+import com.thirds.engine.physics.material.PhysicalMaterial;
 
 public class PhysicsObject implements Simulatable {
 
@@ -11,6 +12,7 @@ public class PhysicsObject implements Simulatable {
 		DYNAMIC
 	}
 	
+	private PhysicalMaterial material;	
 	private PhysicsSimulationType simType;
 	private Vector3 pos;
 	private Vector3 velocity;
@@ -18,15 +20,24 @@ public class PhysicsObject implements Simulatable {
 	private boolean isColliding;
 	
 	public PhysicsObject() {
-		this(new Vector3());
+		this(new Vector3(), new PhysicalMaterial());
 	}
 	
 	public PhysicsObject(Vector3 pos) {
-		this(pos, PhysicsSimulationType.DYNAMIC);
+		this(pos, new PhysicalMaterial(), PhysicsSimulationType.DYNAMIC);
 	}
 	
 	public PhysicsObject(Vector3 pos, PhysicsSimulationType simType) {
+		this(pos, new PhysicalMaterial(), simType);
+	}
+	
+	public PhysicsObject(Vector3 pos, PhysicalMaterial material) {
+		this(pos, material, PhysicsSimulationType.DYNAMIC);
+	}
+	
+	public PhysicsObject(Vector3 pos, PhysicalMaterial material, PhysicsSimulationType simType) {
 		this.pos = pos;
+		this.setMaterial(material);
 		this.simType = simType;
 		velocity = new Vector3();
 	}
@@ -42,6 +53,8 @@ public class PhysicsObject implements Simulatable {
 			// Cap velocity to 500 m/s
 			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP);
 			
+			velocity.scl(1 - material.getFriction());
+			
 			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
 			collider.setPos(pos);
@@ -51,6 +64,14 @@ public class PhysicsObject implements Simulatable {
 		}
 	}
 	
+	public PhysicalMaterial getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(PhysicalMaterial material) {
+		this.material = material;
+	}
+
 	public PhysicsSimulationType getSimType() {
 		return simType;
 	}
