@@ -19,7 +19,7 @@ public class TestGame extends ThirdsGame {
 	
 	private CameraInputController camController;
 	
-	private Model modelFloor, modelSphere, modelBox;
+	private Model modelFloor, modelSphere;
 	
 	public TestGame() {
 		super();
@@ -47,92 +47,27 @@ public class TestGame extends ThirdsGame {
         		new Material(
         				ColorAttribute.createDiffuse(Color.BLUE)),
         		Usage.Position | Usage.Normal);
-        modelBox = modelBuilder.createBox(2f, 2f, 2f,
-        		new Material(
-        				ColorAttribute.createDiffuse(Color.BLUE)),
-        		Usage.Position | Usage.Normal);
-        
-        //scene.addObject(new ModelRenderObject(modelFloor, new Vector3(0f, -0.5f, 0f)));
-        
-        PhysicsModelObject sphere1 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(5f, 2f, 0.3f), 1f), modelSphere);
-//        sphere1.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
-        scene.addObject(sphere1);
-        scene.addPhysicsObject(sphere1.getPhysicsObject());
-        
-        PhysicsModelObject sphere2 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(-5f, 2f, -0.3f), 1f), modelSphere);
-//        sphere2.getPhysicsObject().setVelocity(new Vector3(0.3f, 0f, 0f));
-        scene.addObject(sphere2);
-        scene.addPhysicsObject(sphere2.getPhysicsObject());
-        
-        ////
-        
-        PhysicsModelObject box1 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createAABB(new Vector3(5f, 5f, -0.3f), 2f, 2f, 2f), modelBox);
-//        box1.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
-        scene.addObject(box1);
-        scene.addPhysicsObject(box1.getPhysicsObject());
-        
-        PhysicsModelObject box2 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createAABB(new Vector3(-5f, 5f, 0.3f), 2f, 2f, 2f), modelBox);
-//        box2.getPhysicsObject().setVelocity(new Vector3(0.3f, 0f, 0f));
-        scene.addObject(box2);
-        scene.addPhysicsObject(box2.getPhysicsObject());
-        
-        ////
-        
-        PhysicsModelObject sphere3 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(-5f, 8f, -0.3f), 1f), modelSphere);
-//        sphere3.getPhysicsObject().setVelocity(new Vector3(0.3f, 0f, 0f));
-        scene.addObject(sphere3);
-        scene.addPhysicsObject(sphere3.getPhysicsObject());
-        
-        PhysicsModelObject box3 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createAABB(new Vector3(5f, 8f, 0.3f), 2f, 2f, 2f), modelBox);
-//        box3.getPhysicsObject().setVelocity(new Vector3(-0.3f, 0f, 0f));
-        scene.addObject(box3);
-        scene.addPhysicsObject(box3.getPhysicsObject());
-        
-        ////
-        
-        //PhysicsObject plane = PhysicsObjectFactory.createPlane(new Vector3(0f, 1f, 0f), 0f);
-        //scene.addPhysicsObject(plane);
-        
+
         PhysicsModelObject floor = new PhysicsModelObject(
         		PhysicsObjectFactory.createAABB(new Vector3(-10f, -1f, -10f), new Vector3(10f, 0f, 10f)), modelFloor);
         floor.getPhysicsObject().setSimType(PhysicsSimulationType.STATIC);
         scene.addObject(floor);
         scene.addPhysicsObject(floor.getPhysicsObject());
-        
-        PhysicsModelObject box4 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createAABB(new Vector3(5f, 5f, 3f), 2f, 2f, 2f), modelBox);
-//        box4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
-        scene.addObject(box4);
-        scene.addPhysicsObject(box4.getPhysicsObject());
-        
-        PhysicsModelObject sphere4 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(-5f, 5f, 3f), 1f), modelSphere);
-//        sphere4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
-        scene.addObject(sphere4);
-        scene.addPhysicsObject(sphere4.getPhysicsObject());
-        
-        ////
-        
-        PhysicsModelObject sphere5 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(0f, 5f, 0.5f), 1f), modelSphere);
-        scene.addObject(sphere5);
-        scene.addPhysicsObject(sphere5.getPhysicsObject());
-        
-        PhysicsModelObject sphere6 = new PhysicsModelObject(
-        		PhysicsObjectFactory.createSphere(new Vector3(0f, 10f, -0.5f), 1f), modelSphere);
-        scene.addObject(sphere6);
-        scene.addPhysicsObject(sphere6.getPhysicsObject());
 	}
 	
+	int t = 0;
 	@Override
 	public void tick() {
 		super.tick();
+		
+		if (t++ > 60) {
+			t = 0;
+			PhysicsModelObject sphere = new PhysicsModelObject(
+					PhysicsObjectFactory.createSphere(new Vector3(
+							(float)Math.random(), 10f, (float)Math.random()), 1f), modelSphere);
+			scene.addObject(sphere);
+			scene.addPhysicsObject(sphere.getPhysicsObject());
+		}
 	}
 	
 	@Override
