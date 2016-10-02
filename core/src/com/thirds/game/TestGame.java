@@ -116,6 +116,18 @@ public class TestGame extends ThirdsGame {
 //        sphere4.getPhysicsObject().setVelocity(new Vector3(0f, -0.3f, 0f));
         scene.addObject(sphere4);
         scene.addPhysicsObject(sphere4.getPhysicsObject());
+        
+        ////
+        
+        PhysicsModelObject sphere5 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createSphere(new Vector3(0f, 5f, 0.5f), 1f), modelSphere);
+        scene.addObject(sphere5);
+        scene.addPhysicsObject(sphere5.getPhysicsObject());
+        
+        PhysicsModelObject sphere6 = new PhysicsModelObject(
+        		PhysicsObjectFactory.createSphere(new Vector3(0f, 10f, -0.5f), 1f), modelSphere);
+        scene.addObject(sphere6);
+        scene.addPhysicsObject(sphere6.getPhysicsObject());
 	}
 	
 	@Override
