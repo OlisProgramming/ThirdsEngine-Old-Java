@@ -42,8 +42,11 @@ public class PhysicsEngine implements Simulatable {
 						((Collider)objects.get(i).getCollider()).collide
 						((Collider)objects.get(j).getCollider());
 				
-				if (data.getDoesIntersect())
+				if (data.getDoesIntersect()) {
+					data.getA().getOwner().setColliding(true);
+					data.getB().getOwner().setColliding(true);
 					collisions.add(data);
+				}
 			}
 		}
 		

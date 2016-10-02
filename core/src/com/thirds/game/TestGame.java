@@ -11,10 +11,8 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.ThirdsEngine;
 import com.thirds.engine.ThirdsGame;
-import com.thirds.engine.physics.PhysicsObject;
-import com.thirds.engine.physics.PhysicsObjectFactory;
 import com.thirds.engine.physics.PhysicsObject.PhysicsSimulationType;
-import com.thirds.engine.scene.object.ModelRenderObject;
+import com.thirds.engine.physics.PhysicsObjectFactory;
 import com.thirds.engine.scene.object.PhysicsModelObject;
 
 public class TestGame extends ThirdsGame {
