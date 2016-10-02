@@ -38,6 +38,10 @@ public class PhysicsObject implements Simulatable {
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
 			// Change velocity to add gravity
 			if (!isColliding) velocity.add(PhysicsEngine.GRAVITY_PER_TICK);
+			
+			// Cap velocity to 500 m/s
+			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP_PER_TICK);
+			
 			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
 			collider.setPos(pos);
