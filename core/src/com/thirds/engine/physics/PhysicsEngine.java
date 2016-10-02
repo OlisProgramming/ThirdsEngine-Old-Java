@@ -1,6 +1,5 @@
 package com.thirds.engine.physics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.thirds.engine.ThirdsEngine;
@@ -63,8 +62,6 @@ public class PhysicsEngine implements Simulatable {
 				collision.getA().getOwner().setVelocity(reflect(collision.getA().getOwner().getVelocity(), direction));
 			if (collision.getB().getOwner().getSimType() != PhysicsSimulationType.STATIC)
 				collision.getB().getOwner().setVelocity(reflect(collision.getB().getOwner().getVelocity(), direction.scl(-1f)));
-			
-			Gdx.app.log(collision.getA().toString(), collision.getB().toString());
 		}
 	}
 	
