@@ -69,8 +69,6 @@ public class PhysicsEngine implements Simulatable {
 			float spdA = velA.len();
 			float spdB = velB.len();
 			
-			float spdMean = (spdA + spdB) / 2f;
-			
 			if ((collision.getA().getOwner().getSimType() != PhysicsSimulationType.STATIC) &&
 					collision.getB().getOwner().getSimType() != PhysicsSimulationType.STATIC) {
 				// Both dynamic
