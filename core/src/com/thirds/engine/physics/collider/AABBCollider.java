@@ -1,6 +1,5 @@
 package com.thirds.engine.physics.collider;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.thirds.engine.physics.CollisionData;
 import com.thirds.engine.physics.PhysicsObject;
@@ -66,8 +65,6 @@ public class AABBCollider extends Collider {
 		
 		// Get distance between point and edge of sphere
 		float distMinusRad = dist - other.getRadius();
-		
-		Gdx.app.log("", Float.toString(distMinusRad));
 		
 		return new CollisionData(distMinusRad < 0, direction, this, other);
 	}

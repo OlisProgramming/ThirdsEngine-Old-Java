@@ -1,12 +1,21 @@
 package com.thirds.engine.physics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.thirds.engine.ThirdsEngine;
+import com.thirds.engine.physics.PhysicsObject.PhysicsSimulationType;
 import com.thirds.engine.physics.collider.Collider;
 
 public class PhysicsEngine implements Simulatable {
 
+	public static final Vector3 GRAVITY_PER_SECOND = new Vector3(0f, -9.81f, 0f);
+	public static final Vector3 GRAVITY_PER_TICK = new Vector3(0f, -9.81f * ThirdsEngine.SECONDS_PER_TICK, 0f);
+	
+	public static final float VELOCITY_CAP_PER_SECOND = 500f;
+	public static final float VELOCITY_CAP_PER_TICK = 500f * ThirdsEngine.SECONDS_PER_TICK;
+	public static final float VELOCITY_CAP_SQU_PER_SECOND = VELOCITY_CAP_PER_SECOND * VELOCITY_CAP_PER_SECOND;
+	public static final float VELOCITY_CAP_SQU_PER_TICK = VELOCITY_CAP_PER_TICK * VELOCITY_CAP_PER_TICK;
+	
 	private Array<PhysicsObject> objects;
 	
 	public PhysicsEngine() {
@@ -39,8 +48,11 @@ public class PhysicsEngine implements Simulatable {
 						((Collider)objects.get(i).getCollider()).collide
 						((Collider)objects.get(j).getCollider());
 				
-				if (data.getDoesIntersect())
+				if (data.getDoesIntersect()) {
+					data.getA().getOwner().setColliding(true);
+					data.getB().getOwner().setColliding(true);
 					collisions.add(data);
+				}
 			}
 		}
 		
@@ -55,11 +67,10 @@ public class PhysicsEngine implements Simulatable {
 		for (CollisionData collision : collisions) {
 			Vector3 direction = collision.getDirection().nor();
 			
-			// Reverse velocities
-			collision.getA().getOwner().setVelocity(reflect(collision.getA().getOwner().getVelocity(), direction));
-			collision.getB().getOwner().setVelocity(reflect(collision.getB().getOwner().getVelocity(), direction.scl(-1f)));
-			
-			Gdx.app.log(collision.getA().toString(), collision.getB().toString());
+			if (collision.getA().getOwner().getSimType() != PhysicsSimulationType.STATIC)
+				collision.getA().getOwner().setVelocity(reflect(collision.getA().getOwner().getVelocity(), direction));
+			if (collision.getB().getOwner().getSimType() != PhysicsSimulationType.STATIC)
+				collision.getB().getOwner().setVelocity(reflect(collision.getB().getOwner().getVelocity(), direction.scl(-1f)));
 		}
 	}
 	

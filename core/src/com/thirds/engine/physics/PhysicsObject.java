@@ -15,6 +15,7 @@ public class PhysicsObject implements Simulatable {
 	private Vector3 pos;
 	private Vector3 velocity;
 	private Collider collider;
+	private boolean isColliding;
 	
 	public PhysicsObject() {
 		this(new Vector3());
@@ -35,8 +36,18 @@ public class PhysicsObject implements Simulatable {
 		if (simType == PhysicsSimulationType.STATIC) {
 			// Do nothing for static objects
 		} else if (simType == PhysicsSimulationType.DYNAMIC) {
+			// Change velocity to add gravity
+			if (!isColliding) velocity.add(PhysicsEngine.GRAVITY_PER_TICK);
+			
+			// Cap velocity to 500 m/s
+			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP_PER_TICK);
+			
+			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
 			collider.setPos(pos);
+			
+			// isColliding must only be true for one tick
+			isColliding = false;
 		}
 	}
 	
@@ -70,5 +81,13 @@ public class PhysicsObject implements Simulatable {
 	
 	public void setVelocity(Vector3 velocity) {
 		this.velocity = velocity;
+	}
+
+	public boolean isColliding() {
+		return isColliding;
+	}
+
+	public void setColliding(boolean isColliding) {
+		this.isColliding = isColliding;
 	}
 }
