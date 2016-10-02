@@ -64,10 +64,24 @@ public class PhysicsEngine implements Simulatable {
 		for (CollisionData collision : collisions) {
 			Vector3 direction = collision.getDirection().nor();
 			
+			Vector3 velA = collision.getA().getOwner().getVelocity();
+			Vector3 velB = collision.getB().getOwner().getVelocity();
+			float spdA = velA.len();
+			float spdB = velB.len();
+			
+			float spdMean = (spdA + spdB) / 2f;
+			
+			if ((collision.getA().getOwner().getSimType() != PhysicsSimulationType.STATIC) &&
+					collision.getB().getOwner().getSimType() != PhysicsSimulationType.STATIC) {
+				// Both dynamic
+				velA.scl(spdB / spdA);
+				velB.scl(spdA / spdB);
+			}
+			
 			if (collision.getA().getOwner().getSimType() != PhysicsSimulationType.STATIC)
-				collision.getA().getOwner().setVelocity(reflect(collision.getA().getOwner().getVelocity(), direction));
+				collision.getA().getOwner().setVelocity(reflect(velA, direction));
 			if (collision.getB().getOwner().getSimType() != PhysicsSimulationType.STATIC)
-				collision.getB().getOwner().setVelocity(reflect(collision.getB().getOwner().getVelocity(), direction.scl(-1f)));
+				collision.getB().getOwner().setVelocity(reflect(velB, direction.scl(-1f)));
 		}
 	}
 	

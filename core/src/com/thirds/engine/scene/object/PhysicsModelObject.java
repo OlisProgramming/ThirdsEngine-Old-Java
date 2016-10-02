@@ -15,7 +15,7 @@ public class PhysicsModelObject extends ModelRenderObject {
 	}
 	
 	public PhysicsModelObject(PhysicsObject physicsObject, Model model) {
-		super(model, new Vector3());
+		super(model, new Vector3(0f, -1000f, 0f));
 		this.physicsObject = physicsObject;
 	}
 	
