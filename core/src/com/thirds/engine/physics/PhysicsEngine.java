@@ -11,10 +11,7 @@ public class PhysicsEngine implements Simulatable {
 	public static final Vector3 GRAVITY_PER_SECOND = new Vector3(0f, -9.81f, 0f);
 	public static final Vector3 GRAVITY_PER_TICK = new Vector3(0f, -9.81f * ThirdsEngine.SECONDS_PER_TICK, 0f);
 	
-	public static final float VELOCITY_CAP_PER_SECOND = 500f;
-	public static final float VELOCITY_CAP_PER_TICK = 500f * ThirdsEngine.SECONDS_PER_TICK;
-	public static final float VELOCITY_CAP_SQU_PER_SECOND = VELOCITY_CAP_PER_SECOND * VELOCITY_CAP_PER_SECOND;
-	public static final float VELOCITY_CAP_SQU_PER_TICK = VELOCITY_CAP_PER_TICK * VELOCITY_CAP_PER_TICK;
+	public static final float VELOCITY_CAP = 500f;
 	
 	private Array<PhysicsObject> objects;
 	

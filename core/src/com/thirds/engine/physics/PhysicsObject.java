@@ -40,7 +40,7 @@ public class PhysicsObject implements Simulatable {
 			if (!isColliding) velocity.add(PhysicsEngine.GRAVITY_PER_TICK);
 			
 			// Cap velocity to 500 m/s
-			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP_PER_TICK);
+			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP);
 			
 			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
