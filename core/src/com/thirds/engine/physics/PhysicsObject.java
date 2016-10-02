@@ -53,6 +53,8 @@ public class PhysicsObject implements Simulatable {
 			// Cap velocity to 500 m/s
 			velocity.clamp(0f, PhysicsEngine.VELOCITY_CAP);
 			
+			velocity.scl(1 - material.getFriction());
+			
 			// Change pos due to velocity
 			pos.add(velocity.cpy().scl(ThirdsEngine.SECONDS_PER_TICK));
 			collider.setPos(pos);

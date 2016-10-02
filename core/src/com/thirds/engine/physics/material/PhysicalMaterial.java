@@ -3,31 +3,21 @@ package com.thirds.engine.physics.material;
 public class PhysicalMaterial {
 
 	/**
-	 * The 'bounciness' of the object. In a
-	 * collision, the restitution of one
-	 * object is multiplied by the other's
-	 * restitution to give the total amount
-	 * of bounce on the collision.
-	 * <code>1.0f</code> on both surfaces
-	 * would warrant a collision where no
-	 * friction or air resistance effected
-	 * it, and <code>0.0f</code> on either
-	 * surface would result in a collision
-	 * with no bounce.
+	 * How much friction/air resistance is applied to the object every tick.
 	 */
-	private float restitution;
+	private float friction;
 	
 	public PhysicalMaterial() {
-		restitution = 0.8f;
+		friction = 0.01f;
 	}
 
-	public float getRestitution() {
-		return restitution;
+	public float getFriction() {
+		return friction;
 	}
 
 	/** Returns this for chaining. */
-	public PhysicalMaterial setRestitution(float restitution) {
-		this.restitution = restitution;
+	public PhysicalMaterial setFriction(float friction) {
+		this.friction = friction;
 		return this;
 	}
 }
